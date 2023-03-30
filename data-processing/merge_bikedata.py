@@ -33,16 +33,9 @@ in_outflow = np.zeros((in_flow.shape[0], in_flow.shape[1],  2))
 in_outflow[:, :, 0] = in_flow.copy()
 in_outflow[:, :, 1] = out_flow.copy()
 
-with open('/home/cseadmin/mhy/data-NYCBike/test/{}-{}-NYCbike-inflow.npz'.format(str(TIME_START)[0:6],str(TIME_END)[0:6]), 'wb') as f:
+with open('../data-NYCBike/{}min/{}-{}-NYCbike-inflow.npz'.format(TIME_STEP,str(TIME_START)[0:6],str(TIME_END)[0:6]), 'wb') as f:
         np.savez_compressed(f, in_flow)
-with open('/home/cseadmin/mhy/data-NYCBike/test/{}-{}-NYCbike-outflow.npz'.format(str(TIME_START)[0:6],str(TIME_END)[0:6]), 'wb') as f:
+with open('../data-NYCBike/{}min/{}-{}-NYCbike-outflow.npz'.format(TIME_STEP,str(TIME_START)[0:6],str(TIME_END)[0:6]), 'wb') as f:
         np.savez_compressed(f, out_flow)
-with open('/home/cseadmin/mhy/data-NYCBike/test/{}-{}-NYCbike-inoutflow.npz'.format(str(TIME_START)[0:6],str(TIME_END)[0:6]), 'wb') as f:
+with open('../data-NYCBike/{}min/{}-{}-NYCbike-inoutflow.npz'.format(TIME_STEP,str(TIME_START)[0:6],str(TIME_END)[0:6]), 'wb') as f:
         np.savez_compressed(f, in_outflow)
-
-# with open('./data-NYCBike/{}min/{}-{}-NYCbike-inflow.npz'.format(TIME_STEP,str(TIME_START)[0:6],str(TIME_END)[0:6]), 'wb') as f:
-#         np.savez_compressed(f, in_flow)
-# with open('./data-NYCBike/{}min/{}-{}-NYCbike-outflow.npz'.format(TIME_STEP,str(TIME_START)[0:6],str(TIME_END)[0:6]), 'wb') as f:
-#         np.savez_compressed(f, out_flow)
-# with open('./data-NYCBike/{}min/{}-{}-NYCbike-inoutflow.npz'.format(TIME_STEP,str(TIME_START)[0:6],str(TIME_END)[0:6]), 'wb') as f:
-#         np.savez_compressed(f, in_outflow)

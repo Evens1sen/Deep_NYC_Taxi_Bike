@@ -39,7 +39,7 @@ parser.add_argument("--trainratio", type=float, default=0.8,
 parser.add_argument("--trainvalsplit", type=float, default=0.125,  
                     help="val_ratio = 0.8 * 0.125 = 0.1")  # val_ratio = 0.8 * 0.125 = 0.1
 parser.add_argument("--flowpath", type=str, default='../data-NYCTaxi/60min/2019-2020-graph-outflow.npz', help="the path of flow file")
-parser.add_argument("--adjpath", type=str, default='../data-NYCZones/adjmatrix/W_od_taxi_new2.csv', help="the path of adj file")
+parser.add_argument("--adjpath", type=str, default='../data-NYCZones/adjmatrix/W_adj_matrix.csv', help="the path of adj file")
 parser.add_argument("--cpu", type=int, default=1, help="the number of cpu")
 parser.add_argument("--adjtype", type=str, default="doubletransition", help="the type of adj")
 parser.add_argument('--ex', type=str, default='typhoon-inflow', help='which experiment setting to run')
@@ -120,7 +120,7 @@ def getXSYSTimestamp(data, timestamp, mode):
 def getModel(name):
     adj_mx = load_adj(ADJPATH, ADJTYPE)
     if MULTIGRAPH:
-        ADJPATH1 = '../data-NYCZones/adjmatrix/W_adj_matrix.csv'
+        ADJPATH1 = '../data-NYCZones/adjmatrix/W_od_taxi.csv'
         adj_mx_1 = load_adj(ADJPATH1, 'symnadj')
         # adj = [adj_mx, adj_mx_1]
         adj_mx.extend(adj_mx_1)

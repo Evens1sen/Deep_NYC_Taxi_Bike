@@ -39,8 +39,8 @@ parser.add_argument("--trainratio", type=float, default=0.8,
                     help="the total ratio of training data and validation data")  # TRAIN + VAL
 parser.add_argument("--trainvalsplit", type=float, default=0.125,
                     help="val_ratio = 0.8 * 0.125 = 0.1")  # val_ratio = 0.8 * 0.125 = 0.1
-parser.add_argument("--flowpath", type=str, default='../data-NYCTaxi/60min/taxi-timestamp-outflow.h5', help="../data-NYCBike/60min/bike-timestamp-outflow.h5;----   ../data-NYCTaxi/60min/taxi-timestamp-inflow.h5")
-parser.add_argument("--adjpath", type=str, default='/home/cseadmin/mhy/data-NYCZones/adjmatrix/W_od_taxi.csv', help="/home/cseadmin/mhy/data-NYCZones/adjmatrix/W_od_taxi.csv")
+parser.add_argument("--flowpath", type=str, default='../data-NYCTaxi/60min/2019-2020-graph-inflow.npz', help="the path of flow file")
+parser.add_argument("--adjpath", type=str, default='../data-NYCZones/adjmatrix/W_od_taxi.csv', help="the path of adj file")
 parser.add_argument("--target", type=int, default=0, help='the target dim')
 parser.add_argument("--adjtype", type=str, default="symnadj", help="the type of adj : normlap, symnadj")
 parser.add_argument('--ex', type=str, default='typhoon-inflow', help='which experiment setting to run')

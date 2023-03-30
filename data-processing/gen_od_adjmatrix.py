@@ -25,8 +25,8 @@ od_adjacency_matrix[mask] = np.max(od_adjacency_matrix[mask])/od_adjacency_matri
 
 # od_adjacency_matrix [mask]= od_adjacency_matrix[mask]/np.std(od_adjacency_matrix[mask], ddof=1)
 
-# f = open('../data-NYCZones/adjmatrix/W_od_taxi_new2.csv', 'w', encoding='utf-8')
-f = open('../data-NYCZones/adjmatrix/W_od_bike_new2.csv', 'w', encoding='utf-8')
+# f = open('../data-NYCZones/adjmatrix/W_od_taxi.csv', 'w', encoding='utf-8')
+f = open('../data-NYCZones/adjmatrix/W_od_bike.csv', 'w', encoding='utf-8')
 csv_writer = csv.writer(f)
 id = []
 for i in range(69):
@@ -35,9 +35,3 @@ csv_writer.writerow(id)
 for i in od_adjacency_matrix:
     csv_writer.writerow(i)
 f.close()
-
-
-
-#%%
-
-

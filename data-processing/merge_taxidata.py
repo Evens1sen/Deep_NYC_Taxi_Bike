@@ -8,9 +8,9 @@ TIME_STEP = 60  # minutes
 
 filepath_list = []
 for i in range(1, 13):
-    filepath_list.append('/home/cseadmin/mhy/data-NYCTaxi/{}min/yellow_tripdata_2019-{}-graph-inoutflow.npz'.format(TIME_STEP, str(i).zfill(2)))
+    filepath_list.append('../data-NYCTaxi/{}min/yellow_tripdata_2019-{}-graph-inoutflow.npz'.format(TIME_STEP, str(i).zfill(2)))
 for i in range(1, 13):
-    filepath_list.append('/home/cseadmin/mhy/data-NYCTaxi/{}min/yellow_tripdata_2020-{}-graph-inoutflow.npz'.format(TIME_STEP, str(i).zfill(2)))
+    filepath_list.append('../data-NYCTaxi/{}min/yellow_tripdata_2020-{}-graph-inoutflow.npz'.format(TIME_STEP, str(i).zfill(2)))
 
 out_flow = pd.DataFrame({'time':pd.date_range(str(TIME_START), str(TIME_END), freq='60min')})
 in_flow = pd.DataFrame({'time':pd.date_range(str(TIME_START), str(TIME_END), freq='60min')})
@@ -33,20 +33,9 @@ in_outflow = np.zeros((in_flow.shape[0], in_flow.shape[1],  2))
 in_outflow[:, :, 0] = in_flow.copy()
 in_outflow[:, :, 1] = out_flow.copy()
 
-with open('/home/cseadmin/mhy/data-NYCTaxi/test/{}-{}-NYCtaxi-inflow.npz'.format( str(TIME_START)[0:6], str(TIME_END)[0:6]),
-          'wb') as f:
-    np.savez_compressed(f, in_flow)
-with open('/home/cseadmin/mhy/data-NYCTaxi/test/{}-{}-NYCtaxi-outflow.npz'.format( str(TIME_START)[0:6], str(TIME_END)[0:6]),
-          'wb') as f:
-    np.savez_compressed(f, out_flow)
-with open(
-        '/home/cseadmin/mhy/data-NYCTaxi/test/{}-{}-NYCtaxi-inoutflow.npz'.format(str(TIME_START)[0:6], str(TIME_END)[0:6]),
-        'wb') as f:
-    np.savez_compressed(f, in_outflow)
-
-# with open('./data-NYCTaxi/{}min/{}-{}-NYCtaxi-inflow.npz'.format(TIME_STEP,str(TIME_START)[0:6],str(TIME_END)[0:6]), 'wb') as f:
-#         np.savez_compressed(f, in_flow)
-# with open('./data-NYCTaxi/{}min/{}-{}-NYCtaxi-outflow.npz'.format(TIME_STEP,str(TIME_START)[0:6],str(TIME_END)[0:6]), 'wb') as f:
-#         np.savez_compressed(f, out_flow)
-# with open('./data-NYCTaxi/{}min/{}-{}-NYCtaxi-inoutflow.npz'.format(TIME_STEP,str(TIME_START)[0:6],str(TIME_END)[0:6]), 'wb') as f:
-#         np.savez_compressed(f, in_outflow)
+with open('../data-NYCTaxi/{}min/{}-{}-NYCtaxi-inflow.npz'.format(TIME_STEP,str(TIME_START)[0:6],str(TIME_END)[0:6]), 'wb') as f:
+        np.savez_compressed(f, in_flow)
+with open('../data-NYCTaxi/{}min/{}-{}-NYCtaxi-outflow.npz'.format(TIME_STEP,str(TIME_START)[0:6],str(TIME_END)[0:6]), 'wb') as f:
+        np.savez_compressed(f, out_flow)
+with open('../data-NYCTaxi/{}min/{}-{}-NYCtaxi-inoutflow.npz'.format(TIME_STEP,str(TIME_START)[0:6],str(TIME_END)[0:6]), 'wb') as f:
+        np.savez_compressed(f, in_outflow)

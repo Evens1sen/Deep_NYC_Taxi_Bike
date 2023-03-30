@@ -22,7 +22,7 @@ from configparser import ConfigParser
 
 parser = argparse.ArgumentParser()
 # parser.add_argument("--", type=, default=, help="")
-parser.add_argument("--dataname", type=str, default="METR-LA", help="dataset name")
+parser.add_argument("--dataname", type=str, default="NYCBike inflow", help="dataset name")
 parser.add_argument("--timestep_in", type=int, default=12, help="the time step you input")
 parser.add_argument("--timestep_out", type=int, default=3, help="the time step will output")
 parser.add_argument("--n_node", type=int, default=69, help="the number of the node")
@@ -46,7 +46,7 @@ parser.add_argument('--ex', type=str, default='typhoon-inflow', help='which expe
 parser.add_argument('--gpu', type=int, default=3, help='gpu num')
 parser.add_argument('--target', type=int, default=0,
                     help='predict target 0:bike inflow 1: bike outflow 2:taxi inflow 3:taxi outflow')
-parser.add_argument('--graphnum', type=int, default=1, help='the number of graph')
+parser.add_argument('--multigraph', type=bool, default=False, help="Is multi-graph prediction")
 parser.add_argument('--datatype', type=int, default=0, help='the type of data, 0 is taxi, 1 is bike')
 parser.add_argument('--addtime', type=bool, default=False, help="Add timestamp")
 
@@ -71,9 +71,10 @@ ADJPATH = opt.adjpath
 ADJTYPE = opt.adjtype
 GPU = opt.gpu
 TARGET = opt.target
-GRAPHNUMBER = opt.graphnum
+GRAPHNUMBER = 1 + int(opt.multigraph)
 DATATYPE = opt.datatype
 ADDTIME = opt.addtime
+MULTIGRAPH = opt.multigraph
 
 import os
 
@@ -137,10 +138,11 @@ def getModel(name):
     Lk_new = torch.empty(GRAPHNUMBER, 3, 69, 69).to(device)
     adjpathlist = []
     adjpathlist.append(ADJPATH)
-    if DATATYPE == 0:
-        adjpathlist.append('../data-NYCZones/adjmatrix/W_od_bike_new2.csv')
-    else:
-        adjpathlist.append('../data-NYCZones/adjmatrix/W_od_taxi_new2.csv')
+    if MULTIGRAPH:
+        if DATATYPE == 0:
+            adjpathlist.append('../data-NYCZones/adjmatrix/W_od_bike.csv')
+        else:
+            adjpathlist.append('../data-NYCZones/adjmatrix/W_od_taxi.csv')
     for i in range(GRAPHNUMBER):
         A = pd.read_csv(adjpathlist[i]).values
         W = weight_matrix(A)
@@ -316,7 +318,7 @@ print(opt)
 data = None
 timestamp = None
 if ADDTIME:
-    CHANNEL = 1
+    assert CHANNEL == 1,  'channel must be 1 if use meta information'
     data = pd.read_hdf(FLOWPATH)
     stamp = data.index
     timestamp = Utils.get_onehottime(stamp[0], stamp[-1], stamp.freq)

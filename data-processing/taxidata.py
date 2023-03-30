@@ -9,7 +9,7 @@ def get_flow(year, month):
     in_outflow = np.zeros((2, int((31*24) / TIME_GAP), 69))
     odflow = np.zeros((int((31*24) / TIME_GAP), 69, 69))
 
-    path = f'/home/cseadmin/data/mhy/NYCTaxiData/YellowTaxi{year}/yellow_tripdata_%d-%02d.csv' % (year, month)
+    path = f'../data/NYCTaxiData/{year}/yellow_tripdata_%d-%02d.csv' % (year, month)
     taxi_data = pd.read_csv(path, dtype=str)
     taxi_data['DOLocationID'] = taxi_data['DOLocationID'].astype('int64')
     taxi_data['PULocationID'] = taxi_data['PULocationID'].astype('int64')
@@ -56,12 +56,12 @@ def get_flow(year, month):
             odflow[index, o_id, d_id] = count
 
     minutes = int(TIME_GAP * 60)
-    if not os.path.exists(f'./data-NYCTaxi/{minutes}min'):
-        os.makedirs(f'./data-NYCTaxi/{minutes}min')        
-    f = f'./data-NYCTaxi/{minutes}min/yellow_tripdata_{year}-%02d-graph-inoutflow.npz' % month
+    if not os.path.exists(f'../data-NYCTaxi/{minutes}min'):
+        os.makedirs(f'../data-NYCTaxi/{minutes}min')        
+    f = f'../data-NYCTaxi/{minutes}min/yellow_tripdata_{year}-%02d-graph-inoutflow.npz' % month
     np.savez_compressed(f, in_outflow)
 
-    f = f'./data-NYCTaxi/{minutes}min/yellow_tripdata_{year}-%02d-graph-odflow.npz' % month
+    f = f'../data-NYCTaxi/{minutes}min/yellow_tripdata_{year}-%02d-graph-odflow.npz' % month
     np.savez_compressed(f, odflow)
     print(f"{year}-{month}Saved")
 
